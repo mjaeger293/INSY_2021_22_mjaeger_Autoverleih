@@ -32,4 +32,24 @@ public class Model {
 
     public Model() {
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getDailyRate() {
+        return dailyRate;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
 }
