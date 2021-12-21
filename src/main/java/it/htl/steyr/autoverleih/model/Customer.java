@@ -29,6 +29,6 @@ public class Customer {
     private String city;
 
 
-    @OneToMany(mappedBy = "rental", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Rental> rentals;
 }

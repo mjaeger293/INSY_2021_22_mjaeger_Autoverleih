@@ -21,7 +21,7 @@ public class Car {
     @JoinColumn(name = "model")
     private Model model;
 
-    @OneToMany(mappedBy = "rental", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY) //mappedBy: name der Variable in Rental
     private Set<Rental> rentals;
 
 

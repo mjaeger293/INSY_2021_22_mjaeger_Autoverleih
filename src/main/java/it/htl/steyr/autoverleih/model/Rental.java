@@ -25,6 +25,6 @@ public class Rental {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car")
+    @JoinColumn(name = "car") // Tabellenname in Tabelle mjaeger_rental
     private Car car;
 }
