@@ -1,31 +1,20 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.model.Manufacturer;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableView;
 
 public class ManufacturerController {
-    private IDialogConfirmedSubscriber sub;
 
-    public ListView manufacturerListView;
-    public TextField manufacturerNameTextField;
+    public TableView manufacturerTableView;
 
-    public void manufacturerListViewClicked(MouseEvent mouseEvent) {
-    }
+    public void initialize() {
 
-    public void manufacturerNameTextField(ActionEvent actionEvent) {
-    }
-
-    public void deleteClicked(ActionEvent actionEvent) {
     }
 
     public void addClicked(ActionEvent actionEvent) {
     }
 
-    public void saveClicked(ActionEvent actionEvent) {
-    }
-
-    public void cancelClicked(ActionEvent actionEvent) {
+    public void closeClicked(ActionEvent actionEvent) {
     }
 }

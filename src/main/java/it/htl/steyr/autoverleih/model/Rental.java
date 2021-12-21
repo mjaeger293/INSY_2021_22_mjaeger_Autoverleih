@@ -1,7 +1,7 @@
 package it.htl.steyr.autoverleih.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Entity
 @Table(name = "mjaeger_rental")
@@ -11,10 +11,10 @@ public class Rental {
     private int id;
 
     @Column(name = "rental_date", nullable = false)
-    private Timestamp renal_date;
+    private Date renal_date;
 
     @Column(name = "return_date", nullable = true)
-    private Timestamp return_date;
+    private Date return_date;
 
     @Column(name = "active", nullable = false)
     private boolean active;
