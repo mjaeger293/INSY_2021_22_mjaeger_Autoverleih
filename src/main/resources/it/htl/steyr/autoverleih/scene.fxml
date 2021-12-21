@@ -5,19 +5,31 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.Controller">
    <children>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="520.0">
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="Datei">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#CloseItemClicked" text="Schließen" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" onAction="#manageManufactersClicked" text="Hersteller" />
-            <Menu mnemonicParsing="false" onAction="#manageModelsClicked" text="Modelle" />
-            <Menu mnemonicParsing="false" onAction="#manageCarsClicked" text="Autos" />
-            <Menu mnemonicParsing="false" onAction="#manageCustomersClicked" text="Kunden" />
+            <Menu mnemonicParsing="false" text="Hersteller">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#manageManufactersClicked" text="Hersteller verwalten" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Modelle">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#manageModelsClicked" text="Modelle verwalten" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Autos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#manageCarsClicked" text="Autos verwalten" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Kunden">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#manageCustomersClicked" text="Kunden verwalten" />
+               </items></Menu>
         </menus>
       </MenuBar>
    </children>
