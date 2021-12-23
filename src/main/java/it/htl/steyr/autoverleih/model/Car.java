@@ -16,6 +16,9 @@ public class Car {
     @Column(name = "color", nullable = true)
     private String color;
 
+    @Column(name = "horsePower", nullable = false)
+    private int horsePower;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model")
@@ -24,8 +27,16 @@ public class Car {
     @OneToMany(mappedBy = "car", fetch = FetchType.LAZY) //mappedBy: name der Variable in Rental
     private Set<Rental> rentals;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transmission")
+    private Transmission transmission;
 
-    public Car(String licensePlate, Model model) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fuel")
+    private Fuel fuel;
+
+
+    public Car(String licensePlate, Model model, int horsePower, Transmission transmission, Fuel fuel) {
         this.licensePlate = licensePlate;
         this.model = model;
     }
