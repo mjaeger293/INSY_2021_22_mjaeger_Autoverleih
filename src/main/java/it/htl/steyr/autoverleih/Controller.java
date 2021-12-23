@@ -18,7 +18,6 @@ public class Controller {
     }
 
     public void manageManufactersClicked(ActionEvent actionEvent) {
-        System.out.println("hallo");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("manufacturer.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
@@ -27,7 +26,7 @@ public class Controller {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Konto wählen");
+            stage.setTitle("Hersteller verwalten");
 
             // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
             stage.initModality(Modality.WINDOW_MODAL);
