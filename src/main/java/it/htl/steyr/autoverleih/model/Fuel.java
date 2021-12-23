@@ -15,4 +15,16 @@ public class Fuel {
 
     @OneToMany(mappedBy = "fuel", fetch = FetchType.LAZY)
     private Set<Car> cars;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
 }

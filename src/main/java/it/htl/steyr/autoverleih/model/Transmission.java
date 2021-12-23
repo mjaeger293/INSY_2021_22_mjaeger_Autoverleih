@@ -15,4 +15,16 @@ public class Transmission {
 
     @OneToMany(mappedBy = "transmission", fetch = FetchType.LAZY)
     private Set<Car> cars;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTransmissionType() {
+        return transmissionType;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
 }
