@@ -1,9 +1,11 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
-import it.htl.steyr.autoverleih.model.ManufacturerRepository;
+import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import it.htl.steyr.autoverleih.model.Model;
-import it.htl.steyr.autoverleih.model.ModelRepository;
+import it.htl.steyr.autoverleih.model.repositories.ModelRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;

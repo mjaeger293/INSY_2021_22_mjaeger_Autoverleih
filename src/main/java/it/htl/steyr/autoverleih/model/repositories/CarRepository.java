@@ -1,5 +1,7 @@
-package it.htl.steyr.autoverleih.model;
+package it.htl.steyr.autoverleih.model.repositories;
 
+import it.htl.steyr.autoverleih.model.Car;
+import it.htl.steyr.autoverleih.model.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

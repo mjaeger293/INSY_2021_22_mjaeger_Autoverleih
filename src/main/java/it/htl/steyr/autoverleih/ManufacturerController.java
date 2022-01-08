@@ -1,13 +1,12 @@
 package it.htl.steyr.autoverleih;
 
 import it.htl.steyr.autoverleih.model.Manufacturer;
-import it.htl.steyr.autoverleih.model.ManufacturerRepository;
+import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;

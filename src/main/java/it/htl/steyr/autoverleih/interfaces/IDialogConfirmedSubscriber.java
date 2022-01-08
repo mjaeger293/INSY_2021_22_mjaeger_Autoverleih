@@ -1,4 +1,4 @@
-package it.htl.steyr.autoverleih;
+package it.htl.steyr.autoverleih.interfaces;
 
 public interface IDialogConfirmedSubscriber {
 
