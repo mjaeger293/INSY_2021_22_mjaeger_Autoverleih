@@ -52,4 +52,9 @@ public class Model {
     public Set<Car> getCars() {
         return cars;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

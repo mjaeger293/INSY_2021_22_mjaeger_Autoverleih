@@ -31,4 +31,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Rental> rentals;
+
+    @Override
+    public String toString() {
+        return id + " | " + name;
+    }
 }

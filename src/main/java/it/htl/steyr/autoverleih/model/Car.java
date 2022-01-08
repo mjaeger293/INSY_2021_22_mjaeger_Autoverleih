@@ -1,6 +1,7 @@
 package it.htl.steyr.autoverleih.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Set;
 
 @Entity
@@ -66,5 +67,10 @@ public class Car {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return model + ", " + color + ", " + transmission + ", " + fuel + ", " + horsePower + ", " + licensePlate;
     }
 }

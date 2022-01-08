@@ -27,4 +27,9 @@ public class Transmission {
     public Set<Car> getCars() {
         return cars;
     }
+
+    @Override
+    public String toString() {
+        return transmissionType;
+    }
 }
