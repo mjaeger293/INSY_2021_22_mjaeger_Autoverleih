@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
 import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ManufacturerController {
+public class ManufacturerController implements IDialogConfirmedSubscriber {
 
     public TableView manufacturerTableView;
 
@@ -26,16 +27,7 @@ public class ManufacturerController {
     ManufacturerRepository manufacturerRepository;
 
     public void initialize() {
-        TableColumn<Manufacturer, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        TableColumn<Manufacturer, String> manufacturerNameColumn = new TableColumn<>("Hersteller");
-        manufacturerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        manufacturerTableView.getColumns().add(idColumn);
-        manufacturerTableView.getColumns().add(manufacturerNameColumn);
-
-        manufacturerTableView.getItems().addAll(manufacturerRepository.findAll());
+        loadManufacturers();
     }
 
     public void addClicked(ActionEvent actionEvent) {
@@ -44,6 +36,8 @@ public class ManufacturerController {
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
             NewManufacturerController controller = loader.getController();
+
+            controller.addSubscriber(this);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -62,5 +56,29 @@ public class ManufacturerController {
     public void closeClicked(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    private void loadManufacturers() {
+        // Remove all columns
+        manufacturerTableView.getItems().clear();
+        manufacturerTableView.getColumns().clear();
+
+
+        TableColumn<Manufacturer, Integer> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn<Manufacturer, String> manufacturerNameColumn = new TableColumn<>("Hersteller");
+        manufacturerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+
+        manufacturerTableView.getColumns().add(idColumn);
+        manufacturerTableView.getColumns().add(manufacturerNameColumn);
+
+        manufacturerTableView.getItems().addAll(manufacturerRepository.findAll());
+    }
+
+    @Override
+    public void windowConfirmed(Object... o) {
+        loadManufacturers();
     }
 }

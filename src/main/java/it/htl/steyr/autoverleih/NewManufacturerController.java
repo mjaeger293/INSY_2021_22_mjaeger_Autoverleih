@@ -1,5 +1,7 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
 import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import javafx.event.ActionEvent;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NewManufacturerController {
+public class NewManufacturerController implements IDialogConfirmedPublisher {
+
+    ManufacturerController manufacturerController;
 
     public TextField manufacturerNameTextField;
 
@@ -26,6 +30,9 @@ public class NewManufacturerController {
 
             manufacturerRepository.save(newManufacturer);
 
+            // Update Table View
+            manufacturerController.windowConfirmed();
+
             closeWindow(actionEvent);
         }
     }
@@ -37,5 +44,10 @@ public class NewManufacturerController {
     private void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void addSubscriber(IDialogConfirmedSubscriber sub) {
+        manufacturerController = (ManufacturerController) sub;
     }
 }

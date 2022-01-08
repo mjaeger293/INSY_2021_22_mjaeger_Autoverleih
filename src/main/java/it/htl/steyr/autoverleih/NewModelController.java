@@ -48,6 +48,9 @@ public class NewModelController implements IDialogConfirmedPublisher {
 
             modelRepository.save(newModel);
 
+            // Update TableView
+            modelController.windowConfirmed();
+
             closeWindow(actionEvent);
         }
     }
@@ -58,7 +61,6 @@ public class NewModelController implements IDialogConfirmedPublisher {
 
     private void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        modelController.windowConfirmed();
         stage.close();
     }
 
