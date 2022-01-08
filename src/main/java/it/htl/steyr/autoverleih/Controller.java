@@ -39,6 +39,24 @@ public class Controller {
     }
 
     public void manageModelsClicked(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("model.fxml"));
+            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            ModelController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modelle verwalten");
+
+            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void manageCarsClicked(ActionEvent actionEvent) {
