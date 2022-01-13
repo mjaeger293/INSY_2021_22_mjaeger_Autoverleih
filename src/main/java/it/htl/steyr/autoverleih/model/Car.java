@@ -37,9 +37,13 @@ public class Car {
     private Fuel fuel;
 
 
-    public Car(String licensePlate, Model model, int horsePower, Transmission transmission, Fuel fuel) {
-        this.licensePlate = licensePlate;
+    public Car(Model model, String color, int horsePower, String licensePlate, Transmission transmission, Fuel fuel) {
+        this.color = color;
         this.model = model;
+        this.horsePower = horsePower;
+        this.licensePlate = licensePlate;
+        this.transmission = transmission;
+        this.fuel = fuel;
     }
 
     public Car() {

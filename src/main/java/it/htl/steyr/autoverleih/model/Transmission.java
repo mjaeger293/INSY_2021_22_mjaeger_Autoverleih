@@ -11,7 +11,7 @@ public class Transmission {
     private int id;
 
     @Column(name = "type", nullable = false)
-    private String transmissionType;
+    private String type;
 
     @OneToMany(mappedBy = "transmission", fetch = FetchType.LAZY)
     private Set<Car> cars;
@@ -20,8 +20,8 @@ public class Transmission {
         return id;
     }
 
-    public String getTransmissionType() {
-        return transmissionType;
+    public String getType() {
+        return type;
     }
 
     public Set<Car> getCars() {
@@ -30,6 +30,6 @@ public class Transmission {
 
     @Override
     public String toString() {
-        return transmissionType;
+        return type;
     }
 }

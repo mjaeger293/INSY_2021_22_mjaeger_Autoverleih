@@ -11,7 +11,7 @@ public class Fuel {
     private int id;
 
     @Column(name = "type", nullable = false)
-    private String fuelType;
+    private String type;
 
     @OneToMany(mappedBy = "fuel", fetch = FetchType.LAZY)
     private Set<Car> cars;
@@ -20,8 +20,8 @@ public class Fuel {
         return id;
     }
 
-    public String getFuelType() {
-        return fuelType;
+    public String getType() {
+        return type;
     }
 
     public Set<Car> getCars() {
@@ -30,6 +30,6 @@ public class Fuel {
 
     @Override
     public String toString() {
-        return fuelType;
+        return type;
     }
 }
