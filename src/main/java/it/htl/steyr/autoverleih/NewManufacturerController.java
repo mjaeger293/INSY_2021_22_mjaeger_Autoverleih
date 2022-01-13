@@ -18,6 +18,8 @@ public class NewManufacturerController implements IDialogConfirmedPublisher {
 
     public TextField manufacturerNameTextField;
 
+    Manufacturer editable;
+
     @Autowired
     ManufacturerRepository manufacturerRepository;
 
@@ -25,10 +27,14 @@ public class NewManufacturerController implements IDialogConfirmedPublisher {
     public void saveClicked(ActionEvent actionEvent) {
         String name = manufacturerNameTextField.getText();
 
-        if (!name.equals("")) {
-            Manufacturer newManufacturer = new Manufacturer(name);
+        if (editable == null) {
+            editable = new Manufacturer();
+        }
 
-            manufacturerRepository.save(newManufacturer);
+        if (!name.equals("")) {
+            editable.setName(name);
+
+            manufacturerRepository.save(editable);
 
             // Update Table View
             manufacturerController.windowConfirmed();
@@ -49,5 +55,11 @@ public class NewManufacturerController implements IDialogConfirmedPublisher {
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
         manufacturerController = (ManufacturerController) sub;
+    }
+
+    public void editExistingManufacturer(Manufacturer manufacturer) {
+        this.editable = manufacturer;
+
+        manufacturerNameTextField.setText(editable.getName());
     }
 }
