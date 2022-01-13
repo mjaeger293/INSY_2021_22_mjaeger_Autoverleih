@@ -73,6 +73,30 @@ public class Car {
         this.color = color;
     }
 
+    public int getHorsePower() {
+        return horsePower;
+    }
+
+    public void setHorsePower(int horsePower) {
+        this.horsePower = horsePower;
+    }
+
+    public Transmission getTransmission() {
+        return transmission;
+    }
+
+    public void setTransmission(Transmission transmission) {
+        this.transmission = transmission;
+    }
+
+    public Fuel getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(Fuel fuel) {
+        this.fuel = fuel;
+    }
+
     @Override
     public String toString() {
         return model + ", " + color + ", " + transmission + ", " + fuel + ", " + horsePower + ", " + licensePlate;
