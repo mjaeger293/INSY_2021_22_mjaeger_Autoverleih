@@ -53,6 +53,18 @@ public class Model {
         return cars;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDailyRate(double dailyRate) {
+        this.dailyRate = dailyRate;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     @Override
     public String toString() {
         return manufacturer + " " + name;

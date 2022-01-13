@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.io.IOException;
 @Component
 public class ModelController extends Administration implements IDialogConfirmedSubscriber {
 
-    public TableView modelTableView;
+    public TableView<Model> modelTableView;
 
     @Autowired
     ModelRepository modelRepository;
@@ -90,5 +90,38 @@ public class ModelController extends Administration implements IDialogConfirmedS
     @Override
     public void windowConfirmed(Object... o) {
         loadModels();
+    }
+
+    public void tableViewClicked(MouseEvent mouseEvent) {
+        Model selectedModel = modelTableView.getSelectionModel().getSelectedItem();
+
+        if (mouseEvent.getClickCount() == 2 && selectedModel != null) {
+            openEditWindow(mouseEvent, selectedModel);
+        }
+    }
+
+    private void openEditWindow(MouseEvent mouseEvent, Model model) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("newModel.fxml"));
+            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            NewModelController controller = loader.getController();
+
+            controller.addSubscriber(this);
+
+            controller.editExistingModel(model);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modell hinzufügen");
+
+            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node) mouseEvent.getSource()).getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

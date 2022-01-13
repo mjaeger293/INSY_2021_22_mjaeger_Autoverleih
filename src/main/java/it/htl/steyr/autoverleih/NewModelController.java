@@ -26,6 +26,8 @@ public class NewModelController implements IDialogConfirmedPublisher {
 
     ModelController modelController;
 
+    Model editable;
+
     @Autowired
     ModelRepository modelRepository;
 
@@ -43,10 +45,16 @@ public class NewModelController implements IDialogConfirmedPublisher {
         String dailyRateString = dailyRateTextField.getText();
         Manufacturer manufacturer = manufacturerComboBox.getValue();
 
-        if (manufacturer != null && !name.equals("") && isNumeric(dailyRateString)) {
-            Model newModel = new Model(name, Double.parseDouble(dailyRateString), manufacturer);
+        if (editable == null) {
+            editable = new Model();
+        }
 
-            modelRepository.save(newModel);
+        if (manufacturer != null && !name.equals("") && isNumeric(dailyRateString)) {
+            editable.setName(name);
+            editable.setDailyRate(Double.parseDouble(dailyRateString));
+            editable.setManufacturer(manufacturer);
+
+            modelRepository.save(editable);
 
             // Update TableView
             modelController.windowConfirmed();
@@ -85,5 +93,14 @@ public class NewModelController implements IDialogConfirmedPublisher {
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
         modelController = (ModelController) sub;
+    }
+
+    public void editExistingModel(Model model) {
+        this.editable = model;
+
+        modelNameTextField.setText(editable.getName());
+        dailyRateTextField.setText(String.valueOf(editable.getDailyRate()));
+        manufacturerComboBox.getSelectionModel().select(editable.getManufacturer());
+
     }
 }
