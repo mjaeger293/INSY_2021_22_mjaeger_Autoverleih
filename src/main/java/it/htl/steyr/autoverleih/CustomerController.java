@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomerController implements IDialogConfirmedSubscriber {
+public class CustomerController extends Administration implements IDialogConfirmedSubscriber {
 
     public TableView customerTableView;
 
@@ -64,30 +64,29 @@ public class CustomerController implements IDialogConfirmedSubscriber {
         customerTableView.getColumns().clear();
 
 
-        TableColumn<Manufacturer, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<Manufacturer, Integer> idColumn =
+                createTableColumn("ID", "id");
 
-        TableColumn<Manufacturer, String> lastnameColumn = new TableColumn<>("Nachname");
-        lastnameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Manufacturer, String> lastnameColumn =
+                createTableColumn("Nachname", "name");
 
-        TableColumn<Manufacturer, String> firstnameColumn = new TableColumn<>("Vorname");
-        firstnameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+        TableColumn<Manufacturer, String> firstnameColumn =
+                createTableColumn("Vorname", "firstname");
 
-        TableColumn<Manufacturer, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumn<Manufacturer, String> emailColumn =
+                createTableColumn("Email", "email");
 
-        TableColumn<Manufacturer, String> streetColumn = new TableColumn<>("Strasse");
-        streetColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        TableColumn<Manufacturer, String> streetColumn =
+                createTableColumn("Strasse", "address");
 
-        TableColumn<Manufacturer, String> zipColumn = new TableColumn<>("PLZ");
-        zipColumn.setCellValueFactory(new PropertyValueFactory<>("zipCode"));
+        TableColumn<Manufacturer, String> zipColumn =
+                createTableColumn("PLZ", "zipCode");
 
-        TableColumn<Manufacturer, String> cityColumn = new TableColumn<>("Stadt");
-        cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+        TableColumn<Manufacturer, String> cityColumn =
+                createTableColumn("Stadt", "city");
 
-        TableColumn<Manufacturer, String> ibanColumn = new TableColumn<>("IBAN");
-        ibanColumn.setCellValueFactory(new PropertyValueFactory<>("iban"));
-
+        TableColumn<Manufacturer, String> ibanColumn =
+                createTableColumn("IBAN", "iban");
 
         customerTableView.getColumns().add(idColumn);
         customerTableView.getColumns().add(lastnameColumn);

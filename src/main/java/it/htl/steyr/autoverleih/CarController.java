@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CarController implements IDialogConfirmedSubscriber {
+public class CarController extends Administration implements IDialogConfirmedSubscriber {
 
     public TableView carTableView;
 
@@ -64,26 +64,26 @@ public class CarController implements IDialogConfirmedSubscriber {
         carTableView.getColumns().clear();
 
 
-        TableColumn<Car, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<Car, Integer> idColumn =
+                createTableColumn("ID", "id");
 
-        TableColumn<Car, Model> carModelTableColumn = new TableColumn<>("Modell");
-        carModelTableColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
+        TableColumn<Car, Model> carModelTableColumn =
+                createTableColumn("Modell", "model");
 
-        TableColumn<Car, String> carColorTableColumn = new TableColumn<>("Farbe");
-        carColorTableColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
+        TableColumn<Car, String> carColorTableColumn =
+                createTableColumn("Farbe", "color");
 
-        TableColumn<Car, Integer> carHorsePowerTableColumn = new TableColumn<>("PS");
-        carHorsePowerTableColumn.setCellValueFactory(new PropertyValueFactory<>("horsePower"));
+        TableColumn<Car, Integer> carHorsePowerTableColumn =
+                createTableColumn("PS", "horsePower");
 
-        TableColumn<Car, String> carLicensePlateColumn = new TableColumn<>("Kennzeichen");
-        carLicensePlateColumn.setCellValueFactory(new PropertyValueFactory<>("licensePlate"));
+        TableColumn<Car, String> carLicensePlateColumn =
+                createTableColumn("Kennzeichen", "licensePlate");
 
-        TableColumn<Car, Transmission> carTransmissionTableColumn = new TableColumn<>("Getriebe");
-        carTransmissionTableColumn.setCellValueFactory(new PropertyValueFactory<>("transmission"));
+        TableColumn<Car, Transmission> carTransmissionTableColumn =
+                createTableColumn("Getriebe", "transmission");
 
-        TableColumn<Car, Fuel> carFuelTableColumn = new TableColumn<>("Treibstoff");
-        carFuelTableColumn.setCellValueFactory(new PropertyValueFactory<>("fuel"));
+        TableColumn<Car, Fuel> carFuelTableColumn =
+                createTableColumn("Treibstoff", "fuel");
 
 
         // Add all columns

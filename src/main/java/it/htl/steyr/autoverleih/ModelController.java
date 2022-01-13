@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ModelController implements IDialogConfirmedSubscriber {
+public class ModelController extends Administration implements IDialogConfirmedSubscriber {
 
     public TableView modelTableView;
 
@@ -65,17 +65,17 @@ public class ModelController implements IDialogConfirmedSubscriber {
         modelTableView.getColumns().clear();
 
 
-        TableColumn<Model, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<Model, Integer> idColumn =
+                createTableColumn("ID", "id");
 
-        TableColumn<Model, Manufacturer> modelManufacturerTableColumn = new TableColumn<>("Hersteller");
-        modelManufacturerTableColumn.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+        TableColumn<Model, Manufacturer> modelManufacturerTableColumn =
+                createTableColumn("Hersteller", "manufacturer");
 
-        TableColumn<Model, String> modelNameColumn = new TableColumn<>("Modell");
-        modelNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Model, String> modelNameColumn =
+                createTableColumn("Modell", "name");
 
-        TableColumn<Model, Double> modelDailyRateColumn = new TableColumn<>("Tagessatz");
-        modelDailyRateColumn.setCellValueFactory(new PropertyValueFactory<>("dailyRate"));
+        TableColumn<Model, Double> modelDailyRateColumn =
+                createTableColumn("Tagessatz", "dailyRate");
 
 
         // Add all columns

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ManufacturerController implements IDialogConfirmedSubscriber {
+public class ManufacturerController extends Administration implements IDialogConfirmedSubscriber {
 
     public TableView manufacturerTableView;
 
@@ -64,11 +64,11 @@ public class ManufacturerController implements IDialogConfirmedSubscriber {
         manufacturerTableView.getColumns().clear();
 
 
-        TableColumn<Manufacturer, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<Manufacturer, Integer> idColumn =
+                createTableColumn("ID", "id");
 
-        TableColumn<Manufacturer, String> manufacturerNameColumn = new TableColumn<>("Hersteller");
-        manufacturerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Manufacturer, String> manufacturerNameColumn =
+                createTableColumn("Hersteller", "name");
 
 
         manufacturerTableView.getColumns().add(idColumn);
