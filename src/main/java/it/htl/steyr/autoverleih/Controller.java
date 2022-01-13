@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,60 +16,36 @@ import java.io.IOException;
 public class Controller {
 
     public void CloseItemClicked(ActionEvent actionEvent) {
+        Platform.exit();
+        System.exit(0);
     }
 
     public void manageManufactersClicked(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("manufacturer.fxml"));
-            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
-            Parent root = loader.load();
-            ManufacturerController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Hersteller verwalten");
-
-            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow());
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadWindow("manufacturer.fxml", "Hersteller verwalten", actionEvent);
     }
 
     public void manageModelsClicked(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("model.fxml"));
-            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
-            Parent root = loader.load();
-            ModelController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Modelle verwalten");
-
-            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow());
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadWindow("model.fxml", "Modelle verwalten", actionEvent);
     }
 
     public void manageCarsClicked(ActionEvent actionEvent) {
+        loadWindow("car.fxml", "Fahrzeuge verwalten", actionEvent);
+    }
+
+    public void manageCustomersClicked(ActionEvent actionEvent) {
+        loadWindow("customer.fxml", "Kunden verwalten", actionEvent);
+    }
+
+
+    private void loadWindow(String layoutFileName, String title, ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("car.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(layoutFileName));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            CarController controller = loader.getController();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Fahrzeuge verwalten");
+            stage.setTitle(title);
 
             // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
             stage.initModality(Modality.WINDOW_MODAL);
@@ -78,8 +55,5 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void manageCustomersClicked(ActionEvent actionEvent) {
     }
 }
