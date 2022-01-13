@@ -3,6 +3,7 @@ package it.htl.steyr.autoverleih;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Customer;
+import it.htl.steyr.autoverleih.model.Model;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -26,6 +27,8 @@ public class NewCustomerController implements IDialogConfirmedPublisher {
     public TextField cityTextField;
     public TextField ibanTextField;
 
+    Customer editable;
+
     @Autowired
     CustomerRepository customerRepository;
 
@@ -39,14 +42,24 @@ public class NewCustomerController implements IDialogConfirmedPublisher {
         String city = cityTextField.getText();
         String iban = ibanTextField.getText();
 
+        if (editable == null) {
+            editable = new Customer();
+        }
+
         if (!firstname.equals("") && !lastname.equals("") &&
                 emailFormatValid(email) && !street.equals("") && zipCodeValid(zipString) &&
                 !city.equals("") && ibanValid(iban))
         {
-            Customer newCustomer = new Customer(lastname, firstname, email, street,
-                    Integer.parseInt(zipString), city, iban);
+            editable.setName(lastname);
+            editable.setFirstname(firstname);
+            editable.setEmail(email);
+            editable.setAddress(street);
+            editable.setZipCode(Integer.parseInt(zipString));
+            editable.setCity(city);
+            editable.setIban(iban);
 
-            customerRepository.save(newCustomer);
+
+            customerRepository.save(editable);
 
             // Update Table View
             customerController.windowConfirmed();
@@ -109,5 +122,17 @@ public class NewCustomerController implements IDialogConfirmedPublisher {
         Pattern pattern = Pattern.compile("AT\\d{18}");
 
         return pattern.matcher(iban).matches();
+    }
+
+    public void editExistingCustomer(Customer customer) {
+        this.editable = customer;
+
+        lastnameTextField.setText(editable.getName());
+        firstnameTextField.setText(editable.getFirstname());
+        emailTextField.setText(editable.getEmail());
+        streetTextField.setText(editable.getAddress());
+        zipTextField.setText(String.valueOf(editable.getZipCode()));
+        cityTextField.setText(editable.getCity());
+        ibanTextField.setText(editable.getIban());
     }
 }

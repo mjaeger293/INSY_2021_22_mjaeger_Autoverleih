@@ -1,7 +1,9 @@
 package it.htl.steyr.autoverleih;
 
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
+import it.htl.steyr.autoverleih.model.Customer;
 import it.htl.steyr.autoverleih.model.Manufacturer;
+import it.htl.steyr.autoverleih.model.Model;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ import java.io.IOException;
 @Component
 public class CustomerController extends Administration implements IDialogConfirmedSubscriber {
 
-    public TableView customerTableView;
+    public TableView<Customer> customerTableView;
 
     @Autowired
     CustomerRepository customerRepository;
@@ -64,28 +67,28 @@ public class CustomerController extends Administration implements IDialogConfirm
         customerTableView.getColumns().clear();
 
 
-        TableColumn<Manufacturer, Integer> idColumn =
+        TableColumn<Customer, Integer> idColumn =
                 createTableColumn("ID", "id");
 
-        TableColumn<Manufacturer, String> lastnameColumn =
+        TableColumn<Customer, String> lastnameColumn =
                 createTableColumn("Nachname", "name");
 
-        TableColumn<Manufacturer, String> firstnameColumn =
+        TableColumn<Customer, String> firstnameColumn =
                 createTableColumn("Vorname", "firstname");
 
-        TableColumn<Manufacturer, String> emailColumn =
+        TableColumn<Customer, String> emailColumn =
                 createTableColumn("Email", "email");
 
-        TableColumn<Manufacturer, String> streetColumn =
+        TableColumn<Customer, String> streetColumn =
                 createTableColumn("Strasse", "address");
 
-        TableColumn<Manufacturer, String> zipColumn =
+        TableColumn<Customer, String> zipColumn =
                 createTableColumn("PLZ", "zipCode");
 
-        TableColumn<Manufacturer, String> cityColumn =
+        TableColumn<Customer, String> cityColumn =
                 createTableColumn("Stadt", "city");
 
-        TableColumn<Manufacturer, String> ibanColumn =
+        TableColumn<Customer, String> ibanColumn =
                 createTableColumn("IBAN", "iban");
 
         customerTableView.getColumns().add(idColumn);
@@ -103,5 +106,38 @@ public class CustomerController extends Administration implements IDialogConfirm
     @Override
     public void windowConfirmed(Object... o) {
         loadManufacturers();
+    }
+
+    public void tableViewClicked(MouseEvent mouseEvent) {
+        Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+        if (mouseEvent.getClickCount() == 2 && selectedCustomer != null) {
+            openEditWindow(mouseEvent, selectedCustomer);
+        }
+    }
+
+    private void openEditWindow(MouseEvent mouseEvent, Customer customer) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("newCustomer.fxml"));
+            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            NewCustomerController controller = loader.getController();
+
+            controller.addSubscriber(this);
+
+            controller.editExistingCustomer(customer);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Kunde hinzufügen");
+
+            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node) mouseEvent.getSource()).getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
