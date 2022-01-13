@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.io.IOException;
 @Component
 public class CarController extends Administration implements IDialogConfirmedSubscriber {
 
-    public TableView carTableView;
+    public TableView<Car> carTableView;
 
     @Autowired
     CarRepository carRepository;
@@ -101,5 +102,38 @@ public class CarController extends Administration implements IDialogConfirmedSub
     @Override
     public void windowConfirmed(Object... o) {
         loadCars();
+    }
+
+    public void tableViewClicked(MouseEvent mouseEvent) {
+        Car selectedCar = carTableView.getSelectionModel().getSelectedItem();
+
+        if (mouseEvent.getClickCount() == 2 && selectedCar != null) {
+            openEditWindow(mouseEvent, selectedCar);
+        }
+    }
+
+    private void openEditWindow(MouseEvent mouseEvent, Car car) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("newCar.fxml"));
+            loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
+            Parent root = loader.load();
+            NewCarController controller = loader.getController();
+
+            controller.addSubscriber(this);
+
+            controller.editExistingCar(car);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Fahrzeug hinzufügen");
+
+            // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node) mouseEvent.getSource()).getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

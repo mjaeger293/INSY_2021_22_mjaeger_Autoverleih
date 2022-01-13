@@ -28,6 +28,8 @@ public class NewCarController implements IDialogConfirmedPublisher {
 
     CarController carController;
 
+    Car editable;
+
     @Autowired
     ModelRepository modelRepository;
 
@@ -59,14 +61,26 @@ public class NewCarController implements IDialogConfirmedPublisher {
         Transmission transmission = transmissionComboBox.getValue();
         Fuel fuel = fuelComboBox.getValue();
 
+        if (editable == null) {
+            editable = new Car();
+        }
+
         if (model != null && !color.equals("") &&
                 isNumeric(horsePowerString) &&
                 licensePlateCorrectFormat(licensePlate) &&
                 transmission != null &&
-                fuel != null) {
-            Car newCar = new Car(model, color, Integer.parseInt(horsePowerString), licensePlate, transmission, fuel);
+                fuel != null)
+        {
 
-            carRepository.save(newCar);
+            editable.setModel(model);
+            editable.setColor(color);
+            editable.setHorsePower(Integer.parseInt(horsePowerString));
+            editable.setLicensePlate(licensePlate);
+            editable.setTransmission(transmission);
+            editable.setFuel(fuel);
+
+
+            carRepository.save(editable);
 
             // Update TableView
             carController.windowConfirmed();
@@ -114,5 +128,17 @@ public class NewCarController implements IDialogConfirmedPublisher {
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
         carController = (CarController) sub;
+    }
+
+    public void editExistingCar(Car car) {
+        this.editable = car;
+
+        modelComboBox.getSelectionModel().select(editable.getModel());
+        colorTextField.setText(editable.getColor());
+        horsePowerTextField.setText(String.valueOf(editable.getHorsePower()));
+        licensePlateDistrictTextField.setText(editable.getLicensePlate().split("-")[0]);
+        licensePlateIndividualTextField.setText(editable.getLicensePlate().split("-")[1]);
+        transmissionComboBox.getSelectionModel().select(editable.getTransmission());
+        fuelComboBox.getSelectionModel().select(editable.getFuel());
     }
 }

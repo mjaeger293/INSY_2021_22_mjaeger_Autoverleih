@@ -97,6 +97,10 @@ public class Car {
         this.fuel = fuel;
     }
 
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
     @Override
     public String toString() {
         return model + ", " + color + ", " + transmission + ", " + fuel + ", " + horsePower + ", " + licensePlate;
