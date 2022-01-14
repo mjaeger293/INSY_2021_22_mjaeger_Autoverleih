@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomerController extends Administration implements IDialogConfirmedSubscriber {
+public class CustomerController extends Administration {
 
     public TableView<Customer> customerTableView;
 
@@ -40,7 +40,12 @@ public class CustomerController extends Administration implements IDialogConfirm
             Parent root = loader.load();
             NewCustomerController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadManufacturers();
+                }
+            });
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -103,11 +108,6 @@ public class CustomerController extends Administration implements IDialogConfirm
         customerTableView.getItems().addAll(customerRepository.findAll());
     }
 
-    @Override
-    public void windowConfirmed(Object... o) {
-        loadManufacturers();
-    }
-
     public void tableViewClicked(MouseEvent mouseEvent) {
         Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
 
@@ -123,7 +123,12 @@ public class CustomerController extends Administration implements IDialogConfirm
             Parent root = loader.load();
             NewCustomerController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadManufacturers();
+                }
+            });
 
             controller.editExistingCustomer(customer);
 

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ManufacturerController extends Administration implements IDialogConfirmedSubscriber {
+public class ManufacturerController extends Administration {
 
     public TableView<Manufacturer> manufacturerTableView;
 
@@ -37,7 +37,12 @@ public class ManufacturerController extends Administration implements IDialogCon
             Parent root = loader.load();
             NewManufacturerController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadManufacturers();
+                }
+            });
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -77,11 +82,6 @@ public class ManufacturerController extends Administration implements IDialogCon
         manufacturerTableView.getItems().addAll(manufacturerRepository.findAll());
     }
 
-    @Override
-    public void windowConfirmed(Object... o) {
-        loadManufacturers();
-    }
-
     public void tableViewClicked(MouseEvent mouseEvent) {
         Manufacturer selectedManufacturer = manufacturerTableView.getSelectionModel().getSelectedItem();
 
@@ -97,7 +97,12 @@ public class ManufacturerController extends Administration implements IDialogCon
             Parent root = loader.load();
             NewManufacturerController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadManufacturers();
+                }
+            });
 
             controller.editExistingManufacturer(manufacturer);
 

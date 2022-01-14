@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ModelController extends Administration implements IDialogConfirmedSubscriber {
+public class ModelController extends Administration {
 
     public TableView<Model> modelTableView;
 
@@ -38,7 +38,12 @@ public class ModelController extends Administration implements IDialogConfirmedS
             Parent root = loader.load();
             NewModelController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadModels();
+                }
+            });
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -87,11 +92,6 @@ public class ModelController extends Administration implements IDialogConfirmedS
         modelTableView.getItems().addAll(modelRepository.findAll());
     }
 
-    @Override
-    public void windowConfirmed(Object... o) {
-        loadModels();
-    }
-
     public void tableViewClicked(MouseEvent mouseEvent) {
         Model selectedModel = modelTableView.getSelectionModel().getSelectedItem();
 
@@ -107,7 +107,12 @@ public class ModelController extends Administration implements IDialogConfirmedS
             Parent root = loader.load();
             NewModelController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadModels();
+                }
+            });
 
             controller.editExistingModel(model);
 

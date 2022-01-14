@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CarController extends Administration implements IDialogConfirmedSubscriber {
+public class CarController extends Administration {
 
     public TableView<Car> carTableView;
 
@@ -38,7 +38,12 @@ public class CarController extends Administration implements IDialogConfirmedSub
             Parent root = loader.load();
             NewCarController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadCars();
+                }
+            });
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -99,11 +104,6 @@ public class CarController extends Administration implements IDialogConfirmedSub
         carTableView.getItems().addAll(carRepository.findAll());
     }
 
-    @Override
-    public void windowConfirmed(Object... o) {
-        loadCars();
-    }
-
     public void tableViewClicked(MouseEvent mouseEvent) {
         Car selectedCar = carTableView.getSelectionModel().getSelectedItem();
 
@@ -119,7 +119,12 @@ public class CarController extends Administration implements IDialogConfirmedSub
             Parent root = loader.load();
             NewCarController controller = loader.getController();
 
-            controller.addSubscriber(this);
+            controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                @Override
+                public void windowConfirmed(Object... o) {
+                    loadCars();
+                }
+            });
 
             controller.editExistingCar(car);
 
