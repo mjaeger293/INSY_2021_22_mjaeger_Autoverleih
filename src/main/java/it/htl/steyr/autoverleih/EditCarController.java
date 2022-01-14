@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
-public class NewCarController implements IDialogConfirmedPublisher {
+public class EditCarController implements IDialogConfirmedPublisher {
 
     public ComboBox<Model> modelComboBox;
     public TextField colorTextField;

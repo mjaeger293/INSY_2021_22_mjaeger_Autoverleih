@@ -2,8 +2,6 @@ package it.htl.steyr.autoverleih;
 
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Customer;
-import it.htl.steyr.autoverleih.model.Manufacturer;
-import it.htl.steyr.autoverleih.model.Model;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,7 +35,7 @@ public class CustomerController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newCustomer.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewCustomerController controller = loader.getController();
+            EditCustomerController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override
@@ -121,7 +118,7 @@ public class CustomerController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newCustomer.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewCustomerController controller = loader.getController();
+            EditCustomerController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override

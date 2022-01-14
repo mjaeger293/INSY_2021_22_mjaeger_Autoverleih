@@ -35,7 +35,7 @@ public class ManufacturerController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newManufacturer.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewManufacturerController controller = loader.getController();
+            EditManufacturerController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override
@@ -95,7 +95,7 @@ public class ManufacturerController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newManufacturer.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewManufacturerController controller = loader.getController();
+            EditManufacturerController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override

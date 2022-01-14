@@ -3,7 +3,6 @@ package it.htl.steyr.autoverleih;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Customer;
-import it.htl.steyr.autoverleih.model.Model;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 @Component
-public class NewCustomerController implements IDialogConfirmedPublisher {
+public class EditCustomerController implements IDialogConfirmedPublisher {
 
     IDialogConfirmedSubscriber customerController;
 

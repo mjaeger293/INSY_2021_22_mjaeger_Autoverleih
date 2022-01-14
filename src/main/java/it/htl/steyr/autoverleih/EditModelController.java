@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
-public class NewModelController implements IDialogConfirmedPublisher {
+public class EditModelController implements IDialogConfirmedPublisher {
 
     public ComboBox<Manufacturer> manufacturerComboBox;
     public TextField modelNameTextField;

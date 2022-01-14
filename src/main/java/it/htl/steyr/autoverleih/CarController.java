@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,7 +35,7 @@ public class CarController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newCar.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewCarController controller = loader.getController();
+            EditCarController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override
@@ -117,7 +116,7 @@ public class CarController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newCar.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewCarController controller = loader.getController();
+            EditCarController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override

@@ -36,7 +36,7 @@ public class ModelController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newModel.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewModelController controller = loader.getController();
+            EditModelController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override
@@ -105,7 +105,7 @@ public class ModelController extends Administration {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newModel.fxml"));
             loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
             Parent root = loader.load();
-            NewModelController controller = loader.getController();
+            EditModelController controller = loader.getController();
 
             controller.addSubscriber(new IDialogConfirmedSubscriber() {
                 @Override

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="98.0" prefWidth="303.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.NewManufacturerController">
+<AnchorPane prefHeight="98.0" prefWidth="303.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.EditManufacturerController">
    <children>
       <Label layoutX="195.0" layoutY="13.0" prefHeight="17.0" prefWidth="52.0" text="Name:" AnchorPane.leftAnchor="10.0" />
       <TextField fx:id="manufacturerNameTextField" layoutX="62.0" layoutY="9.0" prefHeight="25.0" prefWidth="184.0" AnchorPane.leftAnchor="62.0" />
