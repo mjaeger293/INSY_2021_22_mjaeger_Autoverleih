@@ -14,6 +14,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
     List<Car> findByModel(Model model);
 
-    @Query(value = "SELECT * FROM mjaeger_car WHERE id NOT in (SELECT car FROM mjaeger_rental WHERE (rental_date > ?1 AND return_date < ?2) OR (return_date > ?1 AND return_date < ?2) OR (rental_date < ?1 AND return_date > ?2))", nativeQuery = true)
+    @Query(value = "SELECT * FROM mjaeger_car WHERE id NOT in (SELECT car FROM mjaeger_rental WHERE (rental_date >= ?1 AND rental_date <= ?2) OR (return_date >= ?1 AND return_date <= ?2) OR (rental_date < ?1 AND return_date > ?2))", nativeQuery = true)
     List<Car> getCarsNotRented(Date rental_date, Date return_date);
 }

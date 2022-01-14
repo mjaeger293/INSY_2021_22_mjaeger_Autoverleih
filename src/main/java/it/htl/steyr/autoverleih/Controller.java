@@ -1,12 +1,12 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.*;
-import it.htl.steyr.autoverleih.model.repositories.CarRepository;
-import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
-import it.htl.steyr.autoverleih.model.repositories.ModelRepository;
+import it.htl.steyr.autoverleih.model.repositories.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,8 +36,12 @@ public class Controller extends Administration {
     boolean modelFilterVisible = false;
     List<Car> availableCars;
 
+    Car selectedCar;
     Manufacturer selectedManufacturer;
     Model selectedModel;
+    Customer selectedCustomer;
+    Date rentalDate;
+    Date returnDate;
 
     @Autowired
     CarRepository carRepository;
@@ -47,6 +51,9 @@ public class Controller extends Administration {
 
     @Autowired
     ModelRepository modelRepository;
+
+    @Autowired
+    RentalRepository rentalRepository;
 
     public void initialize() {
         manufacturerFilterComboBox.getItems().setAll(manufacturerRepository.findAll());
@@ -105,6 +112,9 @@ public class Controller extends Administration {
         loadWindow("customer.fxml", "Kunden verwalten", actionEvent);
     }
 
+    public void manageRentalsClicked(ActionEvent actionEvent) {
+    }
+
 
     private void loadWindow(String layoutFileName, String title, ActionEvent actionEvent) {
         try {
@@ -131,15 +141,34 @@ public class Controller extends Administration {
         LocalDate localReturnDate = returnDatePicker.getValue();
 
         if (rentalDatePicker.getValue() != null && returnDatePicker.getValue() != null) {
-            Date rentalDate = Date.from(Instant.from(localRentalDate.atStartOfDay(ZoneId.systemDefault())));
-            Date returnDate = Date.from(Instant.from(localReturnDate.atStartOfDay(ZoneId.systemDefault())));
+            rentalDate = Date.from(Instant.from(localRentalDate.atStartOfDay(ZoneId.systemDefault())));
+            returnDate = Date.from(Instant.from(localReturnDate.atStartOfDay(ZoneId.systemDefault())));
 
-            availableCars = carRepository.getCarsNotRented(rentalDate, returnDate);
+            if (rentalDate.getTime() < returnDate.getTime()) {
+                // Set return date time to 23:59:59
+                returnDate.setTime(returnDate.getTime() + 86399000);
 
-            availableCarsTableView.getItems().clear();
+                availableCars = carRepository.getCarsNotRented(rentalDate, returnDate);
 
-            if (availableCars.size() > 0) {
-                availableCarsTableView.getItems().addAll(availableCars);
+                availableCarsTableView.getItems().clear();
+
+                if (availableCars.size() > 0) {
+                    availableCarsTableView.getItems().addAll(availableCars);
+                }
+
+                if (selectedManufacturer != null) {
+                    if (selectedModel != null) {
+                        modelFilterChanged(null);
+                    } else {
+                        manufacturerFilterChanged(null);
+                    }
+                }
+            } else {
+                rentalDate = null;
+                returnDate = null;
+
+                availableCarsTableView.getItems().clear();
+                availableCars = null;
             }
         }
     }
@@ -153,9 +182,11 @@ public class Controller extends Administration {
 
             availableCarsTableView.getItems().clear();
 
-            for (Car c : availableCars) {
-                if (c.getModel().getManufacturer().getId() == selectedManufacturer.getId()) {
-                    availableCarsTableView.getItems().add(c);
+            if (availableCars != null) {
+                for (Car c : availableCars) {
+                    if (c.getModel().getManufacturer().getId() == selectedManufacturer.getId()) {
+                        availableCarsTableView.getItems().add(c);
+                    }
                 }
             }
         }
@@ -167,9 +198,11 @@ public class Controller extends Administration {
         if (selectedModel != null) {
             availableCarsTableView.getItems().clear();
 
-            for (Car c : availableCars) {
-                if (c.getModel().getId() == selectedModel.getId()) {
-                    availableCarsTableView.getItems().add(c);
+            if (availableCars != null) {
+                for (Car c : availableCars) {
+                    if (c.getModel().getId() == selectedModel.getId()) {
+                        availableCarsTableView.getItems().add(c);
+                    }
                 }
             }
         }
@@ -178,15 +211,67 @@ public class Controller extends Administration {
     public void clearFiltersClicked(ActionEvent actionEvent) {
         modelFilterComboBox.setDisable(true);
         modelFilterComboBox.getItems().clear();
+        selectedModel = null;
 
-        availableCarsTableView.getItems().setAll(availableCars);
+        manufacturerFilterComboBox.getSelectionModel().clearSelection();
+        selectedManufacturer = null;
+
+        if (availableCars != null) {
+            availableCarsTableView.getItems().setAll(availableCars);
+        }
     }
 
     public void availableCarsTableViewClicked(MouseEvent mouseEvent) {
-        Car selectedCar = availableCarsTableView.getSelectionModel().getSelectedItem();
+        selectedCar = availableCarsTableView.getSelectionModel().getSelectedItem();
 
         if (mouseEvent.getClickCount() == 2 && selectedCar != null) {
-            //openEditWindow(mouseEvent, selectedCar);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("selectCustomer.fxml"));
+                loader.setControllerFactory(JavaFxApplication.getSpringContext()::getBean);
+                Parent root = loader.load();
+                SelectCustomerController controller = loader.getController();
+
+                controller.addSubscriber(new IDialogConfirmedSubscriber() {
+                    @Override
+                    public void windowConfirmed(Object... o) {
+                        selectedCustomer = (Customer) o[0];
+
+                        Rental newRental = new Rental(rentalDate, returnDate, selectedCustomer, selectedCar);
+                        rentalRepository.save(newRental);
+
+                        clearInputField();
+                    }
+                });
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Kunde auswählen");
+
+                // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(((Node) mouseEvent.getSource()).getScene().getWindow());
+
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void clearInputField() {
+        selectedManufacturer = null;
+        selectedModel = null;
+        selectedCar = null;
+        selectedCustomer = null;
+        rentalDate = null;
+        returnDate = null;
+
+        manufacturerFilterComboBox.getSelectionModel().clearSelection();
+        modelFilterComboBox.getSelectionModel().clearSelection();
+
+        rentalDatePicker.setValue(null);
+        returnDatePicker.setValue(null);
+
+        availableCarsTableView.getItems().clear();
     }
 }
