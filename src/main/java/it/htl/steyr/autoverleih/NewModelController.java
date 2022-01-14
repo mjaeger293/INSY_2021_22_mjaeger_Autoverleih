@@ -24,7 +24,7 @@ public class NewModelController implements IDialogConfirmedPublisher {
     public TextField modelNameTextField;
     public TextField dailyRateTextField;
 
-    ModelController modelController;
+    IDialogConfirmedSubscriber modelController;
 
     Model editable;
 
@@ -92,7 +92,7 @@ public class NewModelController implements IDialogConfirmedPublisher {
 
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
-        modelController = (ModelController) sub;
+        modelController = sub;
     }
 
     public void editExistingModel(Model model) {

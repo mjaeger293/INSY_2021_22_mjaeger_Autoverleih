@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Component
 public class NewCustomerController implements IDialogConfirmedPublisher {
 
-    CustomerController customerController;
+    IDialogConfirmedSubscriber customerController;
 
     public TextField firstnameTextField;
     public TextField lastnameTextField;
@@ -79,7 +79,7 @@ public class NewCustomerController implements IDialogConfirmedPublisher {
 
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
-        customerController = (CustomerController) sub;
+        customerController = sub;
     }
 
 

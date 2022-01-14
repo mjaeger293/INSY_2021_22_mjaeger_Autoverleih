@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NewManufacturerController implements IDialogConfirmedPublisher {
 
-    ManufacturerController manufacturerController;
+    IDialogConfirmedSubscriber manufacturerController;
 
     public TextField manufacturerNameTextField;
 
@@ -54,7 +54,7 @@ public class NewManufacturerController implements IDialogConfirmedPublisher {
 
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
-        manufacturerController = (ManufacturerController) sub;
+        manufacturerController = sub;
     }
 
     public void editExistingManufacturer(Manufacturer manufacturer) {

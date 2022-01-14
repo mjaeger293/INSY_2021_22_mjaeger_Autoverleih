@@ -26,7 +26,7 @@ public class NewCarController implements IDialogConfirmedPublisher {
     public ComboBox<Transmission> transmissionComboBox;
     public ComboBox<Fuel> fuelComboBox;
 
-    CarController carController;
+    IDialogConfirmedSubscriber carController;
 
     Car editable;
 
@@ -127,7 +127,7 @@ public class NewCarController implements IDialogConfirmedPublisher {
 
     @Override
     public void addSubscriber(IDialogConfirmedSubscriber sub) {
-        carController = (CarController) sub;
+        carController = sub;
     }
 
     public void editExistingCar(Car car) {
