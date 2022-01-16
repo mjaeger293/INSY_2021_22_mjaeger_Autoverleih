@@ -113,6 +113,7 @@ public class Controller extends Administration {
     }
 
     public void manageRentalsClicked(ActionEvent actionEvent) {
+        loadWindow("selectCustomerRental.fxml", "Kunde auswählen", actionEvent);
     }
 
 

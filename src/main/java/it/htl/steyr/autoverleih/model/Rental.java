@@ -16,6 +16,7 @@ public class Rental {
     @Column(name = "return_date", nullable = true)
     private Date return_date;
 
+    //Pending
     @Column(name = "active", nullable = false)
     private boolean active = true;
 
