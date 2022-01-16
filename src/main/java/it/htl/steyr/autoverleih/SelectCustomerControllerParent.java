@@ -24,6 +24,7 @@ public abstract class SelectCustomerControllerParent extends Administration impl
     CustomerRepository customerRepository;
 
     public void initialize() {
+        customerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadManufacturers();
     }
 

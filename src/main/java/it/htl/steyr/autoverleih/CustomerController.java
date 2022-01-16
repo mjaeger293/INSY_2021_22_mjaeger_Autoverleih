@@ -27,6 +27,7 @@ public class CustomerController extends Administration {
     CustomerRepository customerRepository;
 
     public void initialize() {
+        customerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadManufacturers();
     }
 

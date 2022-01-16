@@ -27,6 +27,7 @@ public class ManufacturerController extends Administration {
     ManufacturerRepository manufacturerRepository;
 
     public void initialize() {
+        manufacturerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadManufacturers();
     }
 

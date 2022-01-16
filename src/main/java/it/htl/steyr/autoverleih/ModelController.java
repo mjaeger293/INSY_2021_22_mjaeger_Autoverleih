@@ -28,6 +28,7 @@ public class ModelController extends Administration {
     ModelRepository modelRepository;
 
     public void initialize() {
+        modelTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadModels();
     }
 

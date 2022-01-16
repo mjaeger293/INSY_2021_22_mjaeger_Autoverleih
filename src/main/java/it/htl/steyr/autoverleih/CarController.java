@@ -27,6 +27,7 @@ public class CarController extends Administration {
     CarRepository carRepository;
 
     public void initialize() {
+        carTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadCars();
     }
 

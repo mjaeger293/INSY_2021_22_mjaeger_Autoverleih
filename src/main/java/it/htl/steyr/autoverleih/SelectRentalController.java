@@ -37,6 +37,8 @@ public class SelectRentalController extends Administration implements IDialogCon
     RentalRepository rentalRepository;
 
     public void initialize() {
+        rentalTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         // The TableView must not be filled during initialize as the selected customer can only be
         // set after initialize at the earliest
         //loadRentals();
