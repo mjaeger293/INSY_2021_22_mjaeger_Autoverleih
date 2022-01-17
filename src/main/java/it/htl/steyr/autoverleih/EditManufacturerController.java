@@ -6,6 +6,8 @@ import it.htl.steyr.autoverleih.model.Manufacturer;
 import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class EditManufacturerController implements IDialogConfirmedPublisher {
     IDialogConfirmedSubscriber manufacturerController;
 
     public TextField manufacturerNameTextField;
+    public Button deleteButton;
 
     Manufacturer editable;
 
@@ -60,6 +63,28 @@ public class EditManufacturerController implements IDialogConfirmedPublisher {
     public void editExistingManufacturer(Manufacturer manufacturer) {
         this.editable = manufacturer;
 
+        deleteButton.setVisible(true);
+
         manufacturerNameTextField.setText(editable.getName());
+    }
+
+    public void deleteClicked(ActionEvent actionEvent) {
+        try {
+            manufacturerRepository.delete(editable);
+        } catch (Exception e) {
+            // If a foreign key of this item still exists, an Exception is thrown
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(null);
+            alert.setContentText("Löschen fehlgeschlagen! Hersteller in Verwendung");
+
+            alert.showAndWait();
+        }
+
+        // Update Table View
+        manufacturerController.windowConfirmed();
+
+        closeWindow(actionEvent);
     }
 }

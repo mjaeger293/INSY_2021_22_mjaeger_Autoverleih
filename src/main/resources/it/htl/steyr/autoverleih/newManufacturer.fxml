@@ -9,7 +9,8 @@
    <children>
       <Label layoutX="195.0" layoutY="13.0" prefHeight="17.0" prefWidth="52.0" text="Name:" AnchorPane.leftAnchor="10.0" />
       <TextField fx:id="manufacturerNameTextField" layoutX="62.0" layoutY="9.0" prefHeight="25.0" prefWidth="184.0" AnchorPane.leftAnchor="62.0" />
-      <Button layoutX="407.0" layoutY="239.0" mnemonicParsing="false" onAction="#saveClicked" text="Speichern" AnchorPane.bottomAnchor="10.666666666666686" AnchorPane.rightAnchor="94.33333333333331" />
+      <Button fx:id="deleteButton" layoutX="53.0" layoutY="54.0" mnemonicParsing="false" onAction="#deleteClicked" text="Löschen" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+      <Button layoutX="407.0" layoutY="239.0" mnemonicParsing="false" onAction="#saveClicked" text="Speichern" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="95.0" />
       <Button layoutX="482.0" layoutY="235.0" mnemonicParsing="false" onAction="#cancelClicked" text="Abbrechen" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>

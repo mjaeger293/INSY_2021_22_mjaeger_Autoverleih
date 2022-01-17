@@ -6,6 +6,8 @@ import it.htl.steyr.autoverleih.model.*;
 import it.htl.steyr.autoverleih.model.repositories.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,6 +27,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
     public TextField licensePlateIndividualTextField;
     public ComboBox<Transmission> transmissionComboBox;
     public ComboBox<Fuel> fuelComboBox;
+    public Button deleteButton;
 
     IDialogConfirmedSubscriber carController;
 
@@ -133,6 +136,8 @@ public class EditCarController implements IDialogConfirmedPublisher {
     public void editExistingCar(Car car) {
         this.editable = car;
 
+        deleteButton.setVisible(true);
+
         modelComboBox.getSelectionModel().select(editable.getModel());
         colorTextField.setText(editable.getColor());
         horsePowerTextField.setText(String.valueOf(editable.getHorsePower()));
@@ -140,5 +145,25 @@ public class EditCarController implements IDialogConfirmedPublisher {
         licensePlateIndividualTextField.setText(editable.getLicensePlate().split("-")[1]);
         transmissionComboBox.getSelectionModel().select(editable.getTransmission());
         fuelComboBox.getSelectionModel().select(editable.getFuel());
+    }
+
+    public void deleteClicked(ActionEvent actionEvent) {
+        try {
+            carRepository.delete(editable);
+        } catch (Exception e) {
+            // If a foreign key of this item still exists, an Exception is thrown
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(null);
+            alert.setContentText("Löschen fehlgeschlagen! Auto in Verwendung");
+
+            alert.showAndWait();
+        }
+
+        // Update Table View
+        carController.windowConfirmed();
+
+        closeWindow(actionEvent);
     }
 }

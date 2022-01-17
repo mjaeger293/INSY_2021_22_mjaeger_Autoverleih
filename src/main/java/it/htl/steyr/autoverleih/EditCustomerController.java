@@ -6,6 +6,8 @@ import it.htl.steyr.autoverleih.model.Customer;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class EditCustomerController implements IDialogConfirmedPublisher {
     public TextField zipTextField;
     public TextField cityTextField;
     public TextField ibanTextField;
+    public Button deleteButton;
 
     Customer editable;
 
@@ -126,6 +129,8 @@ public class EditCustomerController implements IDialogConfirmedPublisher {
     public void editExistingCustomer(Customer customer) {
         this.editable = customer;
 
+        deleteButton.setVisible(true);
+
         lastnameTextField.setText(editable.getName());
         firstnameTextField.setText(editable.getFirstname());
         emailTextField.setText(editable.getEmail());
@@ -133,5 +138,25 @@ public class EditCustomerController implements IDialogConfirmedPublisher {
         zipTextField.setText(String.valueOf(editable.getZipCode()));
         cityTextField.setText(editable.getCity());
         ibanTextField.setText(editable.getIban());
+    }
+
+    public void deleteClicked(ActionEvent actionEvent) {
+        try {
+            customerRepository.delete(editable);
+        } catch (Exception e) {
+            // If a foreign key of this item still exists, an Exception is thrown
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(null);
+            alert.setContentText("Löschen fehlgeschlagen! Kunde in Verwendung");
+
+            alert.showAndWait();
+        }
+
+        // Update Table View
+        customerController.windowConfirmed();
+
+        closeWindow(actionEvent);
     }
 }

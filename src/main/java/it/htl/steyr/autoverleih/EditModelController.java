@@ -8,6 +8,8 @@ import it.htl.steyr.autoverleih.model.Model;
 import it.htl.steyr.autoverleih.model.repositories.ModelRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -23,6 +25,7 @@ public class EditModelController implements IDialogConfirmedPublisher {
     public ComboBox<Manufacturer> manufacturerComboBox;
     public TextField modelNameTextField;
     public TextField dailyRateTextField;
+    public Button deleteButton;
 
     IDialogConfirmedSubscriber modelController;
 
@@ -98,9 +101,31 @@ public class EditModelController implements IDialogConfirmedPublisher {
     public void editExistingModel(Model model) {
         this.editable = model;
 
+        deleteButton.setVisible(true);
+
         modelNameTextField.setText(editable.getName());
         dailyRateTextField.setText(String.valueOf(editable.getDailyRate()));
         manufacturerComboBox.getSelectionModel().select(editable.getManufacturer());
 
+    }
+
+    public void deleteClicked(ActionEvent actionEvent) {
+        try {
+            modelRepository.delete(editable);
+        } catch (Exception e) {
+            // If a foreign key of this item still exists, an Exception is thrown
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(null);
+            alert.setContentText("Löschen fehlgeschlagen! Modell in Verwendung");
+
+            alert.showAndWait();
+        }
+
+        // Update Table View
+        modelController.windowConfirmed();
+
+        closeWindow(actionEvent);
     }
 }
