@@ -102,7 +102,7 @@ public class SelectRentalController extends Administration implements IDialogCon
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
-                stage.setTitle("Verleih abschließen");
+                stage.setTitle("Fahrzeug zurückbringen");
 
                 // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
                 stage.initModality(Modality.WINDOW_MODAL);

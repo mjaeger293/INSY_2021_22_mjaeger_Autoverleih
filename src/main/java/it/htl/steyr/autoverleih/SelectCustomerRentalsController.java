@@ -48,7 +48,7 @@ public class SelectCustomerRentalsController extends SelectCustomerControllerPar
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
-                stage.setTitle("Kunde auswählen");
+                stage.setTitle("Fahrzeug auswählen");
 
                 // Hauptfenster soll inaktiv sein, solange Konto ausgewählt wird.
                 stage.initModality(Modality.WINDOW_MODAL);
