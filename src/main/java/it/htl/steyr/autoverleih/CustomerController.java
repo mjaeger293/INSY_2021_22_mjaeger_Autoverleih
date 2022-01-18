@@ -72,6 +72,8 @@ public class CustomerController extends Administration {
 
         TableColumn<Customer, Integer> idColumn =
                 createTableColumn("ID", "id");
+        idColumn.setMinWidth(30);
+        idColumn.setMaxWidth(80);
 
         TableColumn<Customer, String> lastnameColumn =
                 createTableColumn("Nachname", "name");
@@ -87,6 +89,8 @@ public class CustomerController extends Administration {
 
         TableColumn<Customer, String> zipColumn =
                 createTableColumn("PLZ", "zipCode");
+        zipColumn.setMinWidth(40);
+        zipColumn.setMaxWidth(70);
 
         TableColumn<Customer, String> cityColumn =
                 createTableColumn("Stadt", "city");

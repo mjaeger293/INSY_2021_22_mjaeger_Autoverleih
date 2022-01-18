@@ -72,6 +72,8 @@ public class CarController extends Administration {
 
         TableColumn<Car, Integer> idColumn =
                 createTableColumn("ID", "id");
+        idColumn.setMinWidth(30);
+        idColumn.setMaxWidth(80);
 
         TableColumn<Car, Model> carModelTableColumn =
                 createTableColumn("Modell", "model");
@@ -81,6 +83,8 @@ public class CarController extends Administration {
 
         TableColumn<Car, Integer> carHorsePowerTableColumn =
                 createTableColumn("PS", "horsePower");
+        carHorsePowerTableColumn.setMinWidth(40);
+        carHorsePowerTableColumn.setMaxWidth(60);
 
         TableColumn<Car, String> carLicensePlateColumn =
                 createTableColumn("Kennzeichen", "licensePlate");

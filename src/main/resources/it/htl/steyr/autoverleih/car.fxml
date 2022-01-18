@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="337.0" prefWidth="567.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.CarController">
+<AnchorPane prefHeight="337.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.htl.steyr.autoverleih.CarController">
    <children>
       <Button layoutY="239.0" mnemonicParsing="false" onAction="#addClicked" text="Fahrzeug hinzfügen" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
       <Button layoutX="482.0" layoutY="235.0" mnemonicParsing="false" onAction="#closeClicked" text="Schließen" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
