@@ -42,7 +42,7 @@ public class JavaFxApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle(APPLICATION_TITLE);
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
