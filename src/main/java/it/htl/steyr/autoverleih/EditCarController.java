@@ -6,15 +6,13 @@ import it.htl.steyr.autoverleih.model.*;
 import it.htl.steyr.autoverleih.model.repositories.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 @Component
@@ -28,6 +26,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
     public ComboBox<Transmission> transmissionComboBox;
     public ComboBox<Fuel> fuelComboBox;
     public Button deleteButton;
+    public Label licensePlateErrorLabel;
 
     IDialogConfirmedSubscriber carController;
 
@@ -62,7 +61,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
         Model model = modelComboBox.getValue();
         String color = colorTextField.getText();
         String horsePowerString = horsePowerTextField.getText();
-        String licensePlate = licensePlateDistrictTextField.getText()  + "-" + licensePlateIndividualTextField.getText();
+        String licensePlate = (licensePlateDistrictTextField.getText()  + "-" + licensePlateIndividualTextField.getText()).toUpperCase();
         Transmission transmission = transmissionComboBox.getValue();
         Fuel fuel = fuelComboBox.getValue();
 
@@ -91,6 +90,10 @@ public class EditCarController implements IDialogConfirmedPublisher {
             carController.windowConfirmed();
 
             closeWindow(actionEvent);
+        } else if (licensePlateCorrectFormat(licensePlate) || licensePlate.equals("-")) {
+            licensePlateErrorLabel.setVisible(false);
+        } else {
+            licensePlateErrorLabel.setVisible(true);
         }
     }
 
@@ -105,6 +108,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
 
     /**
      * Checks if a license plate is valid
+     * (At least Austrian ones)
      *
      * @param licensePlate the license plate to be checked
      * @return boolean
@@ -114,8 +118,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
             return false;
         }
 
-        // not working yet
-        Pattern pattern = Pattern.compile(".*");
+        Pattern pattern = Pattern.compile("([A-Z]{1,2})[-]((\\d{1,5} ?[A-Z]{1,3})|([A-Z]{1,5} ?\\d{1,4}))");
 
         return pattern.matcher(licensePlate).matches();
     }
