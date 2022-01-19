@@ -34,6 +34,9 @@ public class EditCustomerController implements IDialogConfirmedPublisher {
     @Autowired
     CustomerRepository customerRepository;
 
+    public void initialize() {
+        editable = null;
+    }
 
     public void saveClicked(ActionEvent actionEvent) {
         String firstname = firstnameTextField.getText();

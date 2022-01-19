@@ -26,6 +26,9 @@ public class EditManufacturerController implements IDialogConfirmedPublisher {
     @Autowired
     ManufacturerRepository manufacturerRepository;
 
+    public void initialize() {
+        editable = null;
+    }
 
     public void saveClicked(ActionEvent actionEvent) {
         String name = manufacturerNameTextField.getText();

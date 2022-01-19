@@ -54,6 +54,8 @@ public class EditCarController implements IDialogConfirmedPublisher {
 
         List<Fuel> fuels = fuelRepository.findAll();
         fuelComboBox.getItems().setAll(fuels);
+
+        editable = null;
     }
 
     public void saveClicked(ActionEvent actionEvent) {

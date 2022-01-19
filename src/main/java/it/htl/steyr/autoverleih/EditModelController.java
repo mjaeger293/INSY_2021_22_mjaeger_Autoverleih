@@ -39,8 +39,9 @@ public class EditModelController implements IDialogConfirmedPublisher {
 
     public void initialize() {
         List<Manufacturer> manufacturers = manufacturerRepository.findAll();
-
         manufacturerComboBox.getItems().setAll(manufacturers);
+
+        editable = null;
     }
 
     public void saveClicked(ActionEvent actionEvent) {
