@@ -49,6 +49,8 @@ public abstract class SelectCustomerControllerParent extends Administration impl
 
         TableColumn<Customer, Integer> idColumn =
                 createTableColumn("ID", "id");
+        idColumn.setMinWidth(30);
+        idColumn.setMaxWidth(80);
 
         TableColumn<Customer, String> lastnameColumn =
                 createTableColumn("Nachname", "name");
@@ -64,6 +66,8 @@ public abstract class SelectCustomerControllerParent extends Administration impl
 
         TableColumn<Customer, String> zipColumn =
                 createTableColumn("PLZ", "zipCode");
+        zipColumn.setMinWidth(40);
+        zipColumn.setMaxWidth(70);
 
         TableColumn<Customer, String> cityColumn =
                 createTableColumn("Stadt", "city");
