@@ -66,12 +66,18 @@ public class SelectRentalController extends Administration implements IDialogCon
 
         TableColumn<Rental, Integer> idColumn =
                 createTableColumn("ID", "id");
+        idColumn.setMinWidth(30);
+        idColumn.setMaxWidth(80);
 
         TableColumn<Rental, Date> rentalDateColumn =
                 createTableColumn("Verleihdatum", "rental_date");
+        rentalDateColumn.setMinWidth(150);
+        rentalDateColumn.setMaxWidth(200);
 
         TableColumn<Rental, Date> returnDateColumn =
                 createTableColumn("Rückgabedatum", "return_date");
+        returnDateColumn.setMinWidth(150);
+        returnDateColumn.setMaxWidth(200);
 
         TableColumn<Rental, Car> carColumn =
                 createTableColumn("Fahrzeug", "car");
