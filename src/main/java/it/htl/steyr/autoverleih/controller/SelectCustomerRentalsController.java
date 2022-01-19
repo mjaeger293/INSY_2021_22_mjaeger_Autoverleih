@@ -1,22 +1,16 @@
-package it.htl.steyr.autoverleih;
+package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.JavaFxApplication;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Customer;
-import it.htl.steyr.autoverleih.model.Rental;
-import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

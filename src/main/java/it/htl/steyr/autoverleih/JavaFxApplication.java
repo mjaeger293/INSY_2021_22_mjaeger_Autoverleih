@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih;
 
+import it.htl.steyr.autoverleih.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +28,7 @@ public class JavaFxApplication extends Application {
                         sources(AutoverleihApplication.class).
                         run(args);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("controller/scene.fxml"));
 
         /**
          * Set spring as the factory (when controllers were generated).

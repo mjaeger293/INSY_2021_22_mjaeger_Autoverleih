@@ -1,5 +1,7 @@
-package it.htl.steyr.autoverleih;
+package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.Administration;
+import it.htl.steyr.autoverleih.JavaFxApplication;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
 import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
