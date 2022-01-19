@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +32,8 @@ public class CustomerController extends Administration {
     public void initialize() {
         customerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadManufacturers();
+
+        customerTableView.setPlaceholder(new Label("Keine Kunden gefunden"));
     }
 
     public void addClicked(ActionEvent actionEvent) {

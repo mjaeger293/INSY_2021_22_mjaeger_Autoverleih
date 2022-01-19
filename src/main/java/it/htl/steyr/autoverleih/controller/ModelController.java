@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +33,8 @@ public class ModelController extends Administration {
     public void initialize() {
         modelTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadModels();
+
+        modelTableView.setPlaceholder(new Label("Keine Modelle gefunden"));
     }
 
     public void addClicked(ActionEvent actionEvent) {

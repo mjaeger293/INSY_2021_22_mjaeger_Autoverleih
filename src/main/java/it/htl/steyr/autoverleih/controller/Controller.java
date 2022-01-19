@@ -95,6 +95,8 @@ public class Controller extends Administration {
         availableCarsTableView.getColumns().add(carLicensePlateColumn);
         availableCarsTableView.getColumns().add(carTransmissionTableColumn);
         availableCarsTableView.getColumns().add(carFuelTableColumn);
+
+        availableCarsTableView.setPlaceholder(new Label("Für diese Einstellungen sind keine Fahrzeuge verfügbar"));
     }
 
     public void CloseItemClicked(ActionEvent actionEvent) {

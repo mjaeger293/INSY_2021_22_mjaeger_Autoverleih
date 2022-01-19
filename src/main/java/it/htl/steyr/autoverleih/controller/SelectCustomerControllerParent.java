@@ -7,6 +7,7 @@ import it.htl.steyr.autoverleih.model.Customer;
 import it.htl.steyr.autoverleih.model.repositories.CustomerRepository;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +28,8 @@ public abstract class SelectCustomerControllerParent extends Administration impl
     public void initialize() {
         customerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadManufacturers();
+
+        customerTableView.setPlaceholder(new Label("Keine Kunden gefunden"));
     }
 
     public void closeClicked(ActionEvent actionEvent) {

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +45,8 @@ public class SelectRentalController extends Administration implements IDialogCon
         // The TableView must not be filled during initialize as the selected customer can only be
         // set after initialize at the earliest
         //loadRentals();
+
+        rentalTableView.setPlaceholder(new Label("Keine Verleihungen gefunden"));
     }
 
     public void closeClicked(ActionEvent actionEvent) {
