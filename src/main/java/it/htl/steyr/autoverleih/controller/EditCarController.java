@@ -27,10 +27,14 @@ public class EditCarController implements IDialogConfirmedPublisher {
     public ComboBox<Fuel> fuelComboBox;
     public Button deleteButton;
     public Label licensePlateErrorLabel;
+    public ComboBox<Manufacturer> manufacturerFilterComboBox;
 
     IDialogConfirmedSubscriber carController;
 
     Car editable;
+
+    Manufacturer selectedManufacturer;
+
 
     @Autowired
     ModelRepository modelRepository;
@@ -44,7 +48,12 @@ public class EditCarController implements IDialogConfirmedPublisher {
     @Autowired
     CarRepository carRepository;
 
+    @Autowired
+    ManufacturerRepository manufacturerRepository;
+
     public void initialize() {
+        manufacturerFilterComboBox.getItems().setAll(manufacturerRepository.findAll());
+
         List<Model> models = modelRepository.findAll();
         modelComboBox.getItems().setAll(models);
 
@@ -170,5 +179,21 @@ public class EditCarController implements IDialogConfirmedPublisher {
         carController.windowConfirmed();
 
         closeWindow(actionEvent);
+    }
+
+    public void manufacturerFilterChanged(ActionEvent actionEvent) {
+        selectedManufacturer = manufacturerFilterComboBox.getSelectionModel().getSelectedItem();
+
+        if (selectedManufacturer != null) {
+            modelComboBox.getItems().setAll(modelRepository.findByManufacturer(selectedManufacturer));
+        }
+    }
+
+    public void clearFilterClicked(ActionEvent actionEvent) {
+        manufacturerFilterComboBox.getSelectionModel().clearSelection();
+        selectedManufacturer = null;
+
+        List<Model> models = modelRepository.findAll();
+        modelComboBox.getItems().setAll(models);
     }
 }
