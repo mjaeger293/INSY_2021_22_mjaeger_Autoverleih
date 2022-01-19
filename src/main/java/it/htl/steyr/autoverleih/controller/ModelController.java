@@ -5,12 +5,14 @@ import it.htl.steyr.autoverleih.JavaFxApplication;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
 import it.htl.steyr.autoverleih.model.Model;
+import it.htl.steyr.autoverleih.model.repositories.ManufacturerRepository;
 import it.htl.steyr.autoverleih.model.repositories.ModelRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,20 +23,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class ModelController extends Administration {
 
     public TableView<Model> modelTableView;
+    public ComboBox<Manufacturer> manufacturerFilterComboBox;
+
+    private Manufacturer selectedManufacturer;
 
     @Autowired
     ModelRepository modelRepository;
+
+    @Autowired
+    ManufacturerRepository manufacturerRepository;
 
     public void initialize() {
         modelTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         loadModels();
 
         modelTableView.setPlaceholder(new Label("Keine Modelle gefunden"));
+
+        manufacturerFilterComboBox.getItems().setAll(manufacturerRepository.findAll());
     }
 
     public void addClicked(ActionEvent actionEvent) {
@@ -134,5 +145,21 @@ public class ModelController extends Administration {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void manufacturerFilterChanged(ActionEvent actionEvent) {
+        selectedManufacturer = manufacturerFilterComboBox.getSelectionModel().getSelectedItem();
+
+        if (selectedManufacturer != null) {
+            modelTableView.getItems().setAll(modelRepository.findByManufacturer(selectedManufacturer));
+        }
+    }
+
+    public void clearFilterClicked(ActionEvent actionEvent) {
+        manufacturerFilterComboBox.getSelectionModel().clearSelection();
+        selectedManufacturer = null;
+
+        List<Model> models = modelRepository.findAll();
+        modelTableView.getItems().setAll(models);
     }
 }
