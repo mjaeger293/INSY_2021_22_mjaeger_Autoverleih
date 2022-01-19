@@ -118,7 +118,7 @@ public class EditCarController implements IDialogConfirmedPublisher {
             return false;
         }
 
-        Pattern pattern = Pattern.compile("([A-Z]{1,2})[-]((\\d{1,5} ?[A-Z]{1,3})|([A-Z]{1,5} ?\\d{1,4}))");
+        Pattern pattern = Pattern.compile("([A-Z]{1,2})[-]((\\d{1,5} ?[A-Z]{1,3})|([A-Z]{1,6} ?\\d))");
 
         return pattern.matcher(licensePlate).matches();
     }
