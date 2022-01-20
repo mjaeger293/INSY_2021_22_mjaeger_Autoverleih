@@ -49,15 +49,6 @@ public class SelectRentalController extends Administration implements IDialogCon
         rentalTableView.setPlaceholder(new Label("Keine Verleihungen gefunden"));
     }
 
-    public void closeClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
     public void loadRentals() {
         // Remove all columns
         rentalTableView.getItems().clear();

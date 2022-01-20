@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.Closeable;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EditManufacturerController implements IDialogConfirmedPublisher {
+public class EditManufacturerController extends Closeable implements IDialogConfirmedPublisher {
 
     IDialogConfirmedSubscriber manufacturerController;
 
@@ -47,15 +48,6 @@ public class EditManufacturerController implements IDialogConfirmedPublisher {
 
             closeWindow(actionEvent);
         }
-    }
-
-    public void cancelClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
     }
 
     @Override

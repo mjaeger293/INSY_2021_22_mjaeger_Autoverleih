@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.Closeable;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.*;
@@ -16,7 +17,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 @Component
-public class EditCarController implements IDialogConfirmedPublisher {
+public class EditCarController extends Closeable implements IDialogConfirmedPublisher {
 
     public ComboBox<Model> modelComboBox;
     public TextField colorTextField;
@@ -104,15 +105,6 @@ public class EditCarController implements IDialogConfirmedPublisher {
         } else {
             licensePlateErrorLabel.setVisible(true);
         }
-    }
-
-    public void cancelClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
     }
 
     /**

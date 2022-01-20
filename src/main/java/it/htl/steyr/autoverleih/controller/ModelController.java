@@ -76,11 +76,6 @@ public class ModelController extends Administration {
         }
     }
 
-    public void closeClicked(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
     public void loadModels() {
         // Remove all columns
         modelTableView.getItems().clear();

@@ -32,15 +32,6 @@ public abstract class SelectCustomerControllerParent extends Administration impl
         customerTableView.setPlaceholder(new Label("Keine Kunden gefunden"));
     }
 
-    public void closeClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
     private void loadManufacturers() {
         // Remove all columns
         customerTableView.getItems().clear();

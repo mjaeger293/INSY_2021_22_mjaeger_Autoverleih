@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.Closeable;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Customer;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 @Component
-public class EditCustomerController implements IDialogConfirmedPublisher {
+public class EditCustomerController extends Closeable implements IDialogConfirmedPublisher {
 
     IDialogConfirmedSubscriber customerController;
 
@@ -71,15 +72,6 @@ public class EditCustomerController implements IDialogConfirmedPublisher {
 
             closeWindow(actionEvent);
         }
-    }
-
-    public void cancelClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
     }
 
     @Override

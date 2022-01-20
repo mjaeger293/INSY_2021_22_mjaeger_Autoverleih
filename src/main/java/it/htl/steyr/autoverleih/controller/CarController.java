@@ -64,11 +64,6 @@ public class CarController extends Administration {
         }
     }
 
-    public void closeClicked(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
     public void loadCars() {
         // Remove all columns
         carTableView.getItems().clear();

@@ -3,7 +3,7 @@ package it.htl.steyr.autoverleih;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public abstract class Administration {
+public abstract class Administration extends Closeable {
     /**
      * This method creates a Column for a TableView and assigns a property.
      *

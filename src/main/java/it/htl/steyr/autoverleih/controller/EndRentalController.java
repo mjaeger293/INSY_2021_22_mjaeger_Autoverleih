@@ -1,5 +1,6 @@
 package it.htl.steyr.autoverleih.controller;
 
+import it.htl.steyr.autoverleih.Closeable;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedPublisher;
 import it.htl.steyr.autoverleih.interfaces.IDialogConfirmedSubscriber;
 import it.htl.steyr.autoverleih.model.Manufacturer;
@@ -18,7 +19,7 @@ import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class EndRentalController implements IDialogConfirmedPublisher {
+public class EndRentalController extends Closeable implements IDialogConfirmedPublisher {
 
     public TextField drivenKilometersTextField;
 
@@ -57,15 +58,6 @@ public class EndRentalController implements IDialogConfirmedPublisher {
         } catch (NumberFormatException e) {
             // Do nothing
         }
-    }
-
-    public void cancelClicked(ActionEvent actionEvent) {
-        closeWindow(actionEvent);
-    }
-
-    private void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
     }
 
     @Override

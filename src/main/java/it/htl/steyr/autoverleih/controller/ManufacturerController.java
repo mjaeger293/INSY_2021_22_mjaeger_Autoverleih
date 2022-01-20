@@ -61,11 +61,6 @@ public class ManufacturerController extends Administration {
         }
     }
 
-    public void closeClicked(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
     private void loadManufacturers() {
         // Remove all columns
         manufacturerTableView.getItems().clear();
