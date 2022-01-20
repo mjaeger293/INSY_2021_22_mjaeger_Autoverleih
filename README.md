@@ -40,6 +40,9 @@ Die Spalten werden auf die gesamte Breite der TableView aufgeteilt.
 
 ![Kunden-Seite](images/customer_page.JPG)
 
+Der Button zum Löschen eines Datensatzes befindet sich im Bearbeiten-Fenster, das beim Doppelklicken auf
+einen Eintrag erscheint. Beim Erstellen eines neuen Datensatzes ist der Button nicht sichtbar.
+
 ### Mieten eines Autos
 
 1) Gültigen Zeitraum auswählen (Enddatum vor dem Startdatum ist nicht gültig)   
