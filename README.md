@@ -61,5 +61,5 @@ Das Zurückgeben eines Autos befindet sich unter dem Menüpunkt Customer.
 ![Gefahrene Kilometer eingeben](images/driven_kilometers.JPG)
 
 Schlussendlich wird der zu zahlende Betrag ausgegeben und die Miete auf erledigt gesetzt.
-Daraufhin erscheint wieder die Auswahl der Kunden.
+Daraufhin erscheint wieder die Auswahl der Kunden.   
 ![zu bezahlende Summe](images/end_sum.JPG)
